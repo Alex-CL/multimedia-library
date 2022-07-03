@@ -1,5 +1,5 @@
 import { fixtures } from "./fixtures";
-import { v4 as uuidv4, validate as uuidValidate } from "uuid";
+import { validate as uuidValidate } from "uuid";
 
 export const api = {
   getAll: (query) => {

@@ -23,15 +23,6 @@ export const Panel = () => {
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
 
-  const title = {
-    display: "flex",
-    justifyContent: "space-between",
-  };
-
-  const paper = {
-    marginTop: "15px",
-  };
-
   useEffect(() => {
     const result = api.getAll(query);
     setItems(result.items);
@@ -55,6 +46,20 @@ export const Panel = () => {
     setOpen(true);
   };
 
+  const title = {
+    display: "flex",
+    justifyContent: "space-between",
+  };
+
+  const paper = {
+    marginTop: "15px",
+  };
+
+  const noResults = {
+    textAlign: "center",
+    fontSize: "1.5rem",
+  };
+
   return (
     <>
       <Container maxWidth="md">
@@ -76,6 +81,12 @@ export const Panel = () => {
             <MultimediaCard key={i.id} item={i} selectItem={selectItem} />
           ))}
         </Paper>
+        {items.length === 0 && (
+          <p style={noResults}>
+            No results. <br />
+            Please, try to remove or change some filters.
+          </p>
+        )}
         <Modal id={selectedItem} open={open} close={close} save={save} />
       </Container>
     </>

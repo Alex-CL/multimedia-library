@@ -61,34 +61,32 @@ export const Panel = () => {
   };
 
   return (
-    <>
-      <Container maxWidth="md">
-        <Typography sx={title} variant="h3" gutterBottom>
-          Multimedia Library
-          <AddItem onClick={createItem} />
-        </Typography>
-        <Paper>
-          <Searcher handleQuery={(q) => setQuery({ ...query, ...q })} />
-        </Paper>
-        <Paper sx={paper}>
-          <PaginationComponent
-            count={count}
-            handleQuery={(q) => setQuery({ ...query, ...q })}
-          />
-        </Paper>
-        <Paper sx={paper}>
-          {items.map((i) => (
-            <MultimediaCard key={i.id} item={i} selectItem={selectItem} />
-          ))}
-        </Paper>
-        {items.length === 0 && (
-          <p style={noResults}>
-            No results. <br />
-            Please, try to remove or change some filters.
-          </p>
-        )}
-        <Modal id={selectedItem} open={open} close={close} save={save} />
-      </Container>
-    </>
+    <Container maxWidth="md">
+      <Typography sx={title} variant="h3" gutterBottom>
+        Multimedia Library
+        <AddItem onClick={createItem} />
+      </Typography>
+      <Paper>
+        <Searcher handleQuery={(q) => setQuery({ ...query, ...q })} />
+      </Paper>
+      <Paper sx={paper}>
+        <PaginationComponent
+          count={count}
+          handleQuery={(q) => setQuery({ ...query, ...q })}
+        />
+      </Paper>
+      <Paper sx={paper}>
+        {items.map((i) => (
+          <MultimediaCard key={i.id} item={i} selectItem={selectItem} />
+        ))}
+      </Paper>
+      {items.length === 0 && (
+        <p style={noResults}>
+          No results. <br />
+          Please, try to remove or change some filters.
+        </p>
+      )}
+      <Modal id={selectedItem} open={open} close={close} save={save} />
+    </Container>
   );
 };

@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Container,
-  Typography,
-  Paper,
-} from "@mui/material";
+import { Container, Typography, Paper } from "@mui/material";
 import { MultimediaCard } from "./MultimediaCard";
 import { Modal } from "./Modal";
 import { api } from "../api/api";
@@ -28,8 +24,8 @@ export const Panel = () => {
   const [count, setCount] = useState(0);
 
   const title = {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
   };
 
   const paper = {
@@ -63,7 +59,8 @@ export const Panel = () => {
     <>
       <Container maxWidth="md">
         <Typography sx={title} variant="h3" gutterBottom>
-          Multimedia Library<AddItem onClick={createItem} />
+          Multimedia Library
+          <AddItem onClick={createItem} />
         </Typography>
         <Paper>
           <Searcher handleQuery={(q) => setQuery({ ...query, ...q })} />
@@ -81,7 +78,6 @@ export const Panel = () => {
         </Paper>
         <Modal id={selectedItem} open={open} close={close} save={save} />
       </Container>
-      
     </>
   );
 };

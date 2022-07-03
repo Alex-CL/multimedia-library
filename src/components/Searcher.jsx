@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button, Box, TextField } from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { SortTypes } from "../enums/sorts";
 import { MultimediaType } from "../enums/types";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -10,6 +13,10 @@ export const Searcher = (props) => {
     filter: { textSearch: "" },
     sort: {},
   });
+
+  useEffect(() => {
+    props.handleQuery(query);
+  }, [query]);
 
   const handleSearchTextChange = (e) => {
     const { ...newQuery } = query;
@@ -41,9 +48,17 @@ export const Searcher = (props) => {
     setQuery({ ...newQuery });
   };
 
-  useEffect(() => {
-    props.handleQuery(query);
-  }, [query]);
+  const handleDateChange = (value) => {
+    const { ...newQuery } = query;
+    newQuery.filter = { ...newQuery.filter, date: value };
+    setQuery({ ...newQuery });
+  };
+
+  const clearFilters = () =>
+    setQuery({
+      filter: { ...query.filter, type: 0, date: undefined },
+      sort: {},
+    });
 
   const filterPanel = {
     height: "50px",
@@ -63,12 +78,11 @@ export const Searcher = (props) => {
     height: "30px",
     margin: "auto 0",
   };
-  
-  useEffect(() => {
-  	console.log(query.sort)
-  }, [query])
 
-  const clearFilters = () => setQuery({ filter: { ...query.filter, type: 0 }, sort: {} });
+  const dateStyle = {
+    width: "50px",
+    height: "10px",
+  };
 
   return (
     <>
@@ -104,6 +118,22 @@ export const Searcher = (props) => {
               initialLabel="Types"
               clear={!query.filter.type}
             />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                disableFuture
+                label="By creation date"
+                value={query.filter.date}
+                onChange={(newValue) => {
+                  handleDateChange(newValue);
+                }}
+                renderInput={({ inputRef, inputProps, InputProps }) => (
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <input ref={inputRef} {...inputProps} />
+                    {InputProps?.endAdornment}
+                  </Box>
+                )}
+              />
+            </LocalizationProvider>
             <Button
               variant="standard"
               color="primary"

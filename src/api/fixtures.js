@@ -31,8 +31,7 @@ export const fixtures = [
     title: "Queer: A Graphic History",
     type: MultimediaType.Ebook,
     createdAt: new Date(),
-    imageUrl:
-      "https://www.jokercomics.es/imagenes/9788415/978841537353.GIF",
+    imageUrl: "https://www.jokercomics.es/imagenes/9788415/978841537353.GIF",
   },
   {
     id: uuidv4(),

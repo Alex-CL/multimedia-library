@@ -30,7 +30,7 @@ export const PaginationComponent = (props) => {
 
   return (
     <TablePagination
-	  labelRowsPerPage={'Items per page'}
+      labelRowsPerPage={"Items per page"}
       rowsPerPageOptions={rowsOptions}
       colSpan={3}
       count={props.count}

@@ -17,7 +17,7 @@ export const SelectComponent = (props) => {
 
   const select = {
     height: "20px",
-    width: "180px",
+    width: "150px",
     margin: "auto 0",
     textAlign: "center",
   };

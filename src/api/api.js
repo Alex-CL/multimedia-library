@@ -15,6 +15,20 @@ export const api = {
       if (query.filter.type) {
         filtered = filtered.filter((f) => f.type === query.filter.type);
       }
+
+      if (query.filter.date) {
+        filtered = filtered.filter((f) => {
+          const time = new Date(f.createdAt).getTime();
+          
+          const startDate = new Date(query.filter.date);
+          startDate.setHours(0, 0, 0, 0);
+
+          const endDate = new Date(startDate)
+          endDate.setDate(endDate.getDate() + 1)
+          
+          return startDate.getTime() <= time && time <= endDate.getTime();
+        });
+      }
     }
 
     if (query.sort) {

@@ -50,7 +50,7 @@ export function Modal(props) {
     if (reason === "backdropClick") {
       return;
     }
-    setItem(createNewItem())
+    setItem(createNewItem());
     props.close();
   };
 

@@ -28,6 +28,7 @@ const createNewItem = () => ({
 export function Modal(props) {
   const [open, setOpen] = useState(props.open);
   const [item, setItem] = useState(createNewItem());
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
 
   useEffect(() => {
     setOpen(props.open);
@@ -43,8 +44,17 @@ export function Modal(props) {
 
   const keys = () => Object.keys(item).filter((k) => "id" !== k);
 
+  const capitalize = (k) => k.charAt(0).toUpperCase() + k.slice(1);
+
   const handleChange = (e) =>
     setItem({ ...item, [e.target.name]: e.target.value });
+
+  const handleDelete = () => {
+    api.delete(item.id);
+    setIsDeleteClicked(false);
+    handleClose();
+    props.save();
+  };
 
   const handleClose = (reason) => {
     if (reason === "backdropClick") {
@@ -101,7 +111,10 @@ export function Modal(props) {
     marginBottom: "0",
   };
 
-  const capitalize = (k) => k.charAt(0).toUpperCase() + k.slice(1);
+  const deleteLabel = {
+    color: "#9c27b0",
+    fontWeight: "bold",
+  };
 
   const renderValue = (key) => {
     const value = item[key];
@@ -214,8 +227,29 @@ export function Modal(props) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSave}>Save</Button>
+            {isDeleteClicked ? (
+              <>
+                <p style={deleteLabel}>Are you sure you want to delete?</p>
+                <Button
+                  color="secondary"
+                  onClick={() => setIsDeleteClicked(false)}
+                >
+                  No
+                </Button>
+                <Button onClick={handleDelete}>Yes</Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  color="secondary"
+                  onClick={() => setIsDeleteClicked(true)}
+                >
+                  Delete
+                </Button>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleSave}>Save</Button>
+              </>
+            )}
           </DialogActions>
         </Box>
       </Box>
